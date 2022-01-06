@@ -1,27 +1,73 @@
 // Registers from HTML elements
-var dateView = window.document.querySelector("#display-current-date-long");
-// Array of months
-const month = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-// Array of days of week
-const weekDay = ["Sunday", "Monday", "Tuesday", "Wendesday", "Thursday", "Friday", "Saturday"];
-// Getting current date
-currentDate = new Date();
-// Getting date info as intergers
-var weekNum = currentDate.getDay();
-var monthNum = currentDate.getMonth();
-var dayNum = currentDate.getDate();
-// if satements deals with the suffix apended to the day of month
-var ordinalSuffix = "";
-if(dayNum === 1) {
-    ordinalSuffix = "st"
-}
-if(dayNum === 2) {
-    ordinalSuffix = "nd"
-}
-if(dayNum > 3) {
-    ordinalSuffix = "th"
-}
-// Presents full date as a string
-var fullDate = weekDay[weekNum] + ", " + month[monthNum] + " " + dayNum + ordinalSuffix;
+var dateView = window.document.querySelector("#currentDay");
+// Using moment libarary to get and format date
+var fullDate = moment().format("dddd, MMMM Do YYYY");
 // Writes date to HTML element
 $(dateView).text(fullDate);
+
+// Creating div for time blocks
+var newDiv = [
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div")
+];
+var newInnerDiv = [
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div"),
+    document.createElement("div")
+];
+var newBtn = [
+    document.createElement("button"),
+    document.createElement("button"),
+    document.createElement("button"),
+    document.createElement("button"),
+    document.createElement("button"),
+    document.createElement("button"),
+    document.createElement("button"),
+    document.createElement("button"),
+    document.createElement("button")
+];
+var newParagraph = [
+    document.createElement("p"),
+    document.createElement("p"),
+    document.createElement("p"),
+    document.createElement("p"),
+    document.createElement("p"),
+    document.createElement("p"),
+    document.createElement("p"),
+    document.createElement("p"),
+    document.createElement("p")
+];
+var timeBlocks = ["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"];
+// Time blocks are created
+hold = 0;
+while(hold < 9) {
+    $(".container").append(newDiv[hold]);
+    $(newDiv[hold]).addClass("time-block");
+
+    $(newDiv[hold]).append(newParagraph[hold]);
+    $(newParagraph[hold]).addClass("hour");
+    $(newParagraph[hold]).text(timeBlocks[hold]);
+
+    $(newDiv[hold]).append(newInnerDiv[hold]);
+    $(newInnerDiv[hold]).addClass("row");
+
+    $(newDiv[hold]).append(newBtn[hold]);
+    $(newBtn[hold]).addClass("saveBtn");
+    
+    hold++;
+}
