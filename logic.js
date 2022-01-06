@@ -2,6 +2,7 @@
 var dateView = window.document.querySelector("#currentDay");
 // Using moment libarary to get and format date
 var fullDate = moment().format("dddd, MMMM Do YYYY");
+var hour = moment().format("H");
 // Writes date to HTML element
 $(dateView).text(fullDate);
 
@@ -55,6 +56,7 @@ var newParagraph = [
 var timeBlocks = ["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"];
 // Time blocks are created
 hold = 0;
+time = 9;
 while(hold < 9) {
     $(".container").append(newDiv[hold]);
     $(newDiv[hold]).addClass("time-block");
@@ -68,6 +70,20 @@ while(hold < 9) {
 
     $(newDiv[hold]).append(newBtn[hold]);
     $(newBtn[hold]).addClass("saveBtn");
-    
+    timeBased();
+
     hold++;
+    time++;
+}
+
+function timeBased() {
+    if(time < hour){
+        $(newInnerDiv[hold]).addClass("past");
+    }
+    if(time == hour){
+        $(newInnerDiv[hold]).addClass("present");
+    }
+    if(time > hour){
+        $(newInnerDiv[hold]).addClass("future");
+    }
 }
