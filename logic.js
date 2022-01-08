@@ -19,7 +19,7 @@ var newDiv = [
     document.createElement("div"),
     document.createElement("div")
 ];
-var newInnerDiv = [
+var newInner = [
     document.createElement("div"),
     document.createElement("div"),
     document.createElement("div"),
@@ -31,6 +31,10 @@ var newInnerDiv = [
     document.createElement("div"),
     document.createElement("div")
 ];
+
+var ids = ["timeBlockNine", "timeBlockTen", "timeBlockEleven", "timeBlockTwelve", "timeBlockOne", "timeBlockTwo", "timeBlockThree", "timeBlockFour", "timeBlockFive"];
+var btnIds = ["timeBlockNineBtn", "timeBlockTenBtn", "timeBlockElevenBtn", "timeBlockTwelveBtn", "timeBlockOneBtn", "timeBlockTwoBtn", "timeBlockThreeBtn", "timeBlockFourBtn", "timeBlockFiveBtn"];
+
 var newBtn = [
     document.createElement("button"),
     document.createElement("button"),
@@ -65,25 +69,100 @@ while(hold < 9) {
     $(newParagraph[hold]).addClass("hour");
     $(newParagraph[hold]).text(timeBlocks[hold]);
 
-    $(newDiv[hold]).append(newInnerDiv[hold]);
-    $(newInnerDiv[hold]).addClass("row");
+    $(newDiv[hold]).append(newInner[hold]);
+    $(newInner[hold]).addClass("row");
+    $(newInner[hold]).attr("id", ids[hold]);
 
     $(newDiv[hold]).append(newBtn[hold]);
     $(newBtn[hold]).addClass("saveBtn");
+    $(newBtn[hold]).attr("id", btnIds[hold]);
     timeBased();
 
+    addLocal(hold);
     hold++;
     time++;
 }
 
+function addLocal(i) {
+    var saved = localStorage.getItem("item"+i);
+    if(saved != null){
+        var text = document.createElement("p");
+        $(newInner[i]).append(text);
+        $(text).text(saved);
+        console.log(saved);
+    }; 
+}
+
 function timeBased() {
     if(time < hour){
-        $(newInnerDiv[hold]).addClass("past");
+        $(newInner[hold]).addClass("past");
     }
     if(time == hour){
-        $(newInnerDiv[hold]).addClass("present");
+        $(newInner[hold]).addClass("present");
     }
     if(time > hour){
-        $(newInnerDiv[hold]).addClass("future");
+        $(newInner[hold]).addClass("future");
     }
 }
+
+function onClickAction(i) {
+    $("#"+ids[i]).replaceWith("<textarea id='" + ids[i] + "'></textarea>");
+    var f = 0;
+    $("#"+btnIds[i]).click(function() {
+        console.log(btnIds[i]+" was clicked.");
+        saveUserInput(i);
+    });
+}
+
+function saveUserInput(i){
+    var text = document.getElementById(ids[i]).value;
+    localStorage.setItem("item"+i, text);
+    $("#"+ids[i]).replaceWith("<div class='row' id='" + ids[i] + "'>" + text + "</div>");
+    
+}
+
+
+
+$("#"+ids[0]).click(function() {
+    console.log(ids[0]+" was clicked.");
+    onClickAction(0);
+});
+
+$("#"+ids[1]).click(function() {
+    console.log(ids[1]+" was clicked.");
+    onClickAction(1);
+});
+
+$("#"+ids[2]).click(function() {
+    console.log(ids[2]+" was clicked.");
+    onClickAction(2);
+});
+
+$("#"+ids[3]).click(function() {
+    console.log(ids[3]+" was clicked.");
+});
+
+$("#"+ids[4]).click(function() {
+    console.log(ids[4]+" was clicked.");
+    onClickAction(4);
+});
+
+$("#"+ids[5]).click(function() {
+    console.log(ids[5]+" was clicked.");
+    onClickAction(5);
+});
+
+$("#"+ids[6]).click(function() {
+    console.log(ids[6]+" was clicked.");
+    onClickAction(6);
+});
+
+$("#"+ids[7]).click(function() {
+    console.log(ids[7]+" was clicked.");
+    onClickAction(7);
+});
+
+$("#"+ids[8]).click(function() {
+    console.log(ids[8]+" was clicked.");
+    onClickAction(8);
+});
